@@ -9,7 +9,7 @@ import {
   useParams
 } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useLocation,useNavigate } from 'react-router';
 const ethers = require("ethers");
 
 
@@ -17,6 +17,7 @@ function Navbar() {
 
   const [connected, toggleConnect] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const [currAddress, updateAddress] = useState('0x');
 
   async function getAddress() {
@@ -56,7 +57,7 @@ function Navbar() {
         updateButton();
         console.log("here");
         getAddress();
-        window.location.replace(location.pathname)
+        navigate(location.pathname)
       });
   }
 
@@ -70,7 +71,7 @@ function Navbar() {
     }
 
     window.ethereum.on('accountsChanged', function (accounts) {
-      window.location.replace(location.pathname)
+        navigate(location.pathname)
     })
   });
 
